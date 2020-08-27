@@ -14,16 +14,39 @@ import EditableTodoList from "./EditableTodoList";
  * App -> TodoApp -> { TodoForm, EditableTodoList }
  */
 
-function TodoApp() {
+function TodoApp({initialTodos}) {
+
+  const [todos, setTodos] = useState([initialTodos])
 
   /** add a new todo to list */
-  function create(newTodo) { }
+  function create(newTodo) {
+    const nextTodo = {...newTodo, id: uuid}
+    setTodos(todos => [...todos, nextTodo])
+  }
 
   /** update a todo with updatedTodo */
-  function update(updatedTodo) { }
+  //grab an current todo, and update
+  function update(updatedTodo) {
+    const todosCopy = [...todos]
+    for(let i; i < todosCopy; i++){
+      if (todosCopy[i].id = updatedTodo.id){
+        todosCopy[i] = updatedTodo
+      }
+    }
+    setTodos(todosCopy)
+  }
+
+  // function update(updatedTodo) {
+  //   setTodos(todos => {
+  //     todosCopy = [...todos];
+  //     todosCopy
+  //   }
 
   /** delete a todo by id */
-  function remove(id) { }
+  //some sort of filtering
+  function remove(id) {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
 
   /** get highest-priority todo */
   function getTopTodo() { }

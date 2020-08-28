@@ -30,16 +30,18 @@ function TodoApp({initialTodos}) {
   /** update a todo with updatedTodo */
   //grab an current todo, and update
   function update(updatedTodo) {
-    console.log("this is updatedTodo", updatedTodo)
-    const todosCopy = [...todos]
-    for(let i=0; i < todosCopy.length; i++){
-      if (todosCopy[i].id = updatedTodo.id){
-        console.log("found the one to update", todosCopy[i])
-        todosCopy[i] = updatedTodo
+    // console.log("this is updatedTodo", updatedTodo)
+    setTodos(todos => {
+      const todosCopy = [...todos]
+      for(let i=0; i < todosCopy.length; i++){
+        if (todosCopy[i].id === updatedTodo.id){
+          // console.log("found the one to update", todosCopy[i])
+          todosCopy[i] = updatedTodo
+        }
       }
-    }
-    console.log("this is todosCopy", todosCopy)
-    setTodos(todosCopy)
+      // console.log("this is todosCopy", todosCopy)
+      return todosCopy
+    })
   }
 
   // function update(updatedTodo) {
@@ -50,8 +52,9 @@ function TodoApp({initialTodos}) {
 
   /** delete a todo by id */
   //some sort of filtering
+  // CR: if you are relying on the current state, need a cb
   function remove(id) {
-    setTodos(todos.filter(todo => todo.id !== id))
+    setTodos(todos => todos.filter(todo => todo.id !== id))
   }
 
   /** get highest-priority todo */
@@ -87,7 +90,7 @@ function TodoApp({initialTodos}) {
             </section>
             <section>
               <h3 className="mb-3">Add Nü</h3>
-              <TodoForm handleSave={update} />
+              <TodoForm handleSave={create} />
             </section>
           </div>
         </div>

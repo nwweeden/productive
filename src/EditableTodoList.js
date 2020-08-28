@@ -1,5 +1,6 @@
 import React from "react";
 import EditableTodo from "./EditableTodo";
+import uuid from "uuid/v4";
 
 /** Show list of editable todos.
  *
@@ -11,6 +12,8 @@ import EditableTodo from "./EditableTodo";
  * TodoApp -> EditableTodoList -> [ EditableTodo, ... ]
  */
 
+//  CR: Components do one thing - be able to say that in one sentecne
+// CR: you're making a new uuid every time (previous v.) - should be the id itself
 function EditableTodoList({todos, update, remove}) {
   // console.log("EditableTodoList todos:", todos)
   return (
@@ -21,6 +24,7 @@ function EditableTodoList({todos, update, remove}) {
             todo={todo}
             update={update}
             remove={remove}
+            key = {todo.id}
           />
         )}
       </div>

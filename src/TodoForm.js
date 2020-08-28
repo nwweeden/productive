@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import uuid from "uuid/v4";
 
 
 /** Form for adding.
@@ -16,6 +17,7 @@ import React, { useState } from "react";
 function TodoForm({ initialFormData, handleSave }) {
   // console.log("this is initialFormData", initialFormData)
   let initialState;
+  //CR: can set IFD in the sig line and avoid the condition
   if (initialFormData) {
     initialState = {
       title: initialFormData.title,
@@ -37,10 +39,12 @@ function TodoForm({ initialFormData, handleSave }) {
     }));
   }
 
+  //CR: shouldn't be creating IDs - we've already created ids elsewhere
   /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    const newFormData = {...formData, id: initialFormData.id}
+    const newId = initialFormData ? initialFormData.id : uuid(); 
+    const newFormData = {...formData, id: newId}
     handleSave(newFormData);
     setFormData(initialState);
   }
